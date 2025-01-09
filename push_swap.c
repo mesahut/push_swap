@@ -1,4 +1,6 @@
 #include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include "push_swap.h"
 
 int	ft_atoi(char *str)
@@ -41,7 +43,7 @@ void create_node(t_list **head, int data)
         t_list *current = *head;
         while (current->next != NULL)
             current = current->next;
-       current->next = new_node;
+       	current->next = new_node;
     }
 }
 void	ft_print_list(t_list **head)
@@ -55,57 +57,57 @@ void	ft_print_list(t_list **head)
 
 }
 
-void	ft_small(t_list	**head_a, t_list **head_b)
+void	ft_small_push(t_list	**a, t_list	**b, int	count, int	size)
 {
-	t_list	*last_a = *head_a;
-	t_list	*last_b = *head_b;
-	t_list	*first_a = *head_a;
-	t_list	*first_b = *head_b;
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	while(last_a->next)
-		last_a = last_a->next;
-	while(last_b->next)
-		last_b = last_b->next;
-	while (first_a)
+	int	select;
+	if((size/2) >= count)
+		select = 1;
+	if((size/2) < count)
+		select = 0;
+	while (count >= 0)
 	{
-		if(last_a->num > first_a->num)
-			i += 1;
-		first_a = first_a->next;
+		if(select == 0)
+			ft_reverse_rotate(a, 'a');
+		if(select == 1)
+			ft_rotate(a, 'a');
+		count--;
 	}
-	while (first_b)
-	{
-		if(last_b->num > first_b->num)
-			j += 1;
-		first_b = first_b->next;
-	}
-	if((i == 0) && (j == 0))
-		ft_reverse_rotate_rrr(&head_a, &head_b);
-	else if(i == 0)
-		ft_reverse_rotate(&head_a, 'a');
-	else if(j == 0)
-		ft_reverse_rotate(&head_b, 'b');
+	push_b(a, b);
 }
 
-void	ft_change(t_list **head_a, t_list **head_b)
-
-void	ft_sort(t_list **head_a, t_list **head_b)
+void	ft_bubble(t_list	**head_a, t_list	**head_b)
 {
-	t_list	*first_a = *head_a;
-	t_list	*first_b = *head_b;
+	t_list	*tmp;
+	t_list	*node;
+	int		count;
+	int		size;
 
-
-	ft_small(&head_a, &head_b);
-	ft_change(&head_a, )
+	node = *head_a;
+	tmp = node;
+	size = 0;
+	count = 0;
+	while ((*head_a)->next != NULL)
+	{
+		while (node)
+		{
+			if(tmp->num > node->num)
+			{
+				tmp = node;
+				count++;
+			}
+			node = node->next;
+			size++;
+		}
+		ft_small_push(head_a, head_b, count, size);
+	}
+/* 	while ((*head_b) == NULL)
+		push_a(head_a, head_b); */
 }
 
 int main(int ac, char **av)
 {
-	t_list	*a;
-	t_list	*b;
+	t_list	*a = NULL;
+	t_list	*b = NULL;
 	int	i;
 
 	i = 0;
@@ -119,7 +121,8 @@ int main(int ac, char **av)
 		create_node(&a, ft_atoi(av[i]));
 		i++;
 	}
-	ft_sort(&a, &b);
-	
-
+	//ft_print_list(&a);
+	ft_bubble(&a, &b);
+	//write(1, "\n\n\n", 3);
+	//ft_print_list(&a);
 }

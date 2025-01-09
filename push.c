@@ -13,7 +13,7 @@ void	push_create(t_list **head, int num)
 		return;
 	new_node->num = num;
 	new_node->next = node;
-	head = new_node;
+	(*head) = new_node;
 }
 
 void	push_b(t_list	**head_a, t_list	**head_b)
@@ -21,7 +21,7 @@ void	push_b(t_list	**head_a, t_list	**head_b)
 	t_list *tmp;
 	push_create(head_b, (*head_a)->num);
 	tmp = (*head_a)->next;
-	free(head_a);
+	free(*head_a);
 	(*head_a) = tmp;
 	write(1, "pb\n", 3);
 }
@@ -32,7 +32,7 @@ void	push_a(t_list **head_a, t_list **head_b)
 
 	push_create(head_a, (*head_b)->num);
 	tmp = (*head_b)->next;
-	free(head_b);
+	free(*head_b);
 	(*head_b) = tmp;
 	write(1, "pa\n", 3);
 }

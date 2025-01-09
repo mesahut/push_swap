@@ -1,7 +1,13 @@
 
-
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
+
+typedef struct s_list
+{
+    int             num;
+    struct s_list    *next;
+
+} t_list;
 
 	void	ft_swap(t_list **head, char c);
 	void	ft_swap_ss(t_list	**head_a, t_list **head_b);
@@ -16,11 +22,7 @@
 	void	ft_rotate(t_list **head, char c);
 
 
-typedef struct s_list
-{
-    int             num;
-    struct s_list    *next
-
-}    t_list;
 
 #endif
+
+

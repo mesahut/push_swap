@@ -1,4 +1,5 @@
 #include "push_swap.h"
+#include <stddef.h>
 #include <unistd.h>
 
 
@@ -49,7 +50,7 @@ void	ft_reverse_rotate_rrr(t_list **head_a, t_list **head_b)
 
 void ft_rotate_rr(t_list **head_a, t_list **head_b)
 {
-	rotate(head_a, 'r');
-	rotate(head_b, 'r');
+	ft_rotate(head_a, 'r');
+	ft_rotate(head_b, 'r');
 	write(1, "rr\n", 3);
 }
