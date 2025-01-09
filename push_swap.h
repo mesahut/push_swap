@@ -5,6 +5,7 @@
 typedef struct s_list
 {
     int             num;
+	int				index;
     struct s_list    *next;
 
 } t_list;

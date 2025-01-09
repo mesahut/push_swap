@@ -2,7 +2,6 @@
 #include <stddef.h>
 #include <unistd.h>
 
-
 void	ft_rotate(t_list **head, char c)
 {
 	t_list *first;
@@ -20,6 +19,29 @@ void	ft_rotate(t_list **head, char c)
 	if(c == 'b')
 		write(1, "rb\n", 3);
 }
+/*
+
+void	ft_rotate(t_list **head, char c)
+{
+	t_list	*tmp;
+	int			tmp_num;
+	int			tmp_order;
+
+
+	tmp = *head;
+	tmp_num = tmp->num;
+	while (tmp->next != NULL)
+	{
+		tmp->num = tmp->next->num;
+		tmp = tmp->next;
+	}
+	tmp->num = tmp_num;
+	if(c == 'a')
+		write(1, "ra\n", 3);
+	if(c == 'b')
+		write(1, "rb\n", 3);
+}
+*/
 void ft_reverse_rotate(t_list **head, char c)
 {
 	t_list *node;
