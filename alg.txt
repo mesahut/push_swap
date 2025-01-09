@@ -1,0 +1,17 @@
+a ve b stackinin en sonundaki eleman en küçük elemansa rrr
+a stackinin en sonundaki eleman en küçük elemansa rra
+b stackinin en sonundaki eleman en küçük elemansa rrb
+a stackinin ilk iki elemanını b stacine pushla pb pb
+a ve b stackinin ilk iki elemanı swapa uygunsa ss
+a stackinin ilk iki elemanı swapa uygunsa sa
+b stackinin ilk iki elemanı swapa uygunsa sb
+
+
+
+
+
+
+denenecekler a stackinin ilk iki elemanını değiştirerek b staine pushlamakmı faydalı 
+yoksa a stackinin ilk elemanını b stacine pushlayıp b stacki swapa uygunmu kontrol edip
+o şekilde a stackinin ikinci elemanını b stackine pushlayıp swap işlemini b stackinde
+yapmakmı faydalı
