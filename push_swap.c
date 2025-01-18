@@ -9,8 +9,8 @@ int	ft_atoi(char *str)
 	long int	number;
 	int			negative;
 
-	number = 0;
 	i = 0;
+	number = 0;
 	negative = 1;
 	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
 		i++;
@@ -26,8 +26,7 @@ int	ft_atoi(char *str)
 		number += str[i] - 48;
 		i++;
 	}
-	number *= negative;
-	return (number);
+	return (number * negative);
 }
 void create_node(t_list **head, int data)
 {
@@ -70,12 +69,12 @@ int find_smallest(t_list **head_a)
 	}
 	return (small);
 }
-int	ft_list_size(t_list	**head_a)
+int	ft_list_size(t_list	**head)
 {
 	t_list	*node;
 	int i;
 
-	node = (*head_a);
+	node = (*head);
 	while (node)
 	{
 		i++;
@@ -95,25 +94,102 @@ int is_sorted(t_list **head_a)
 	return(1);
 }
 
-int	ft_cost(t_list **head_a, t_list **head_b)
+int ft_optimize_move(t_list	**head, int	place)
 {
-	
+	t_list	*node;
+	int size;
+
+	node = (*head);
+	while (node)
+	{
+		size++;
+		node = node->next;
+	}
+	if(place > (size / 2))
+		place = size - place;
+	return(place); 
 }
 
-void	ft_sort(t_list	**head_a, t_list	**head_b)
+int	ft_count_cost(t_list	**head_b, t_list	**head_a, int index_a, int	pla_a)
 {
-	t_list *node;
+	t_list	*closest_smaller_node;
+	t_list	*top_b;
+	int		len;
+	int		pla_b;
+	int		cost;
 
-	node = (*head_a);
+	len = 0;
+	pla_b = 0;
+	cost = 0;
+	top_b = (*head_b);
+	closest_smaller_node = NULL;
+	while(top_b)
+	{
+		if(index_a > top_b->index)
+		{
+			if(!closest_smaller_node)
+			{
+				closest_smaller_node = top_b;
+				pla_b = len;
+			}
+			else if(top_b->index > closest_smaller_node->index)
+			{
+				closest_smaller_node = top_b;
+				pla_b = len;
+			}
+		}
+		top_b = top_b->next;
+		len++;
+	}
+	pla_a = ft_optimize_move(head_a, pla_a);
+	pla_b = ft_optimize_move(head_b, pla_b);
+	cost = pla_a + pla_b;
+	return(cost);
+}
+
+t_list	*ft_less_cost(t_list	**head_a, t_list	**head_b)
+{
+	t_list	*cost_node;
+	t_list	*less;
+	int		cost;
+	int		newcost;
+	int		pla_a;
+
+	pla_a = 1;
+	cost_node = (*head_a);
+	cost = ft_count_cost(head_b, head_a, cost_node->index, 0);
+	less = cost_node;
+	cost_node = cost_node->next;
+	while (cost_node)
+	{
+		newcost = ft_count_cost(head_b, head_a, cost_node->index, pla_a);
+		if(newcost < cost)
+		{
+			less = cost_node;
+			cost = newcost;
+		}
+		pla_a++;
+		cost_node = cost_node->next;
+	}
+	return(less);
+}
+
+void	ft_two_push(t_list	**head_a, t_list	**head_b)
+{
 	push_b(head_a, head_b);
 	push_b(head_a, head_b);
 	if((*head_b)->index < (*head_b)->next->index)
 		ft_swap(head_b, 'b');
-	while ((*head_a))
-	{
-		
-	}
-	
+}
+
+void	ft_sort(t_list	**head_a, t_list	**head_b)
+{
+	t_list	*node;
+	t_list	*min_cost;
+
+	node = (*head_a);
+	ft_two_push(head_a, head_b);
+	min_cost = ft_less_cost(head_a, head_b);
 }
 
 void	ft_get_index(t_list **head_a)
@@ -162,8 +238,6 @@ int main(int ac, char **av)
 		i++;
 	}
 	ft_get_index(&a);
+	ft_sort(&a, &b);
 	ft_print_list(&a);
-	//ft_bubble(&a, &b);
-	//write(1, "\n\n\n", 3);
-	//ft_print_list(&a);
 }
