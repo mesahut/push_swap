@@ -94,7 +94,7 @@ int is_sorted(t_list **head_a) // (şu an kullanmıyorum) liste sortlanmışmı 
 	return(1);
 }
 
-int ft_optimize_move(t_list	**head, int	place) // eğer en optimize node stacin yarısından daha alttaysa ra yerine rra yapıyor
+int ft_optimize_move(t_list	**head, int	place) // eğer en optimize node stacin yarısından daha alttaysa 
 {
 	t_list	*node;
 	int size;
