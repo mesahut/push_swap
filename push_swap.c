@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include "push_swap.h"
 
-int	ft_atoi(char *str)
+int	ft_atoi(char *str) // bildiğin atoi
 {
 	int			i;
 	long int	number;
@@ -28,7 +28,7 @@ int	ft_atoi(char *str)
 	}
 	return (number * negative);
 }
-void create_node(t_list **head, int data)
+void create_node(t_list **head, int data) // yeni bir node oluşturup sona ekler
 {
     t_list *new_node = (t_list *)malloc(sizeof(t_list));
     new_node->num = data;
@@ -46,7 +46,7 @@ void create_node(t_list **head, int data)
        	current->next = new_node;
     }
 }
-void	ft_print_list(t_list **head)
+void	ft_print_list(t_list **head) // listenin bütün nodlarını indeksleriyle baraber yazırır
 {
 	t_list *node = *head;
 	while(node)
@@ -57,7 +57,7 @@ void	ft_print_list(t_list **head)
 
 }
 
-int find_smallest(t_list **head_a)
+int find_smallest(t_list **head_a) // (şu an kullanmıyorum)
 {
 	t_list *tmp = (*head_a);
 	int small = tmp->num;
@@ -69,7 +69,7 @@ int find_smallest(t_list **head_a)
 	}
 	return (small);
 }
-int	ft_list_size(t_list	**head)
+int	ft_list_size(t_list	**head) // (şu an kullanmıyorum) listenin sizeını verir
 {
 	t_list	*node;
 	int i;
@@ -82,7 +82,7 @@ int	ft_list_size(t_list	**head)
 	}
 	return(i);
 }
-int is_sorted(t_list **head_a)
+int is_sorted(t_list **head_a) // (şu an kullanmıyorum) liste sortlanmışmı kontrol eder
 {
 	t_list *tmp = (*head_a);
 	while(tmp->next)
@@ -94,7 +94,7 @@ int is_sorted(t_list **head_a)
 	return(1);
 }
 
-int ft_optimize_move(t_list	**head, int	place)
+int ft_optimize_move(t_list	**head, int	place) // eğer en optimize node stacin yarısından daha alttaysa ra yerine rra yapıyor
 {
 	t_list	*node;
 	int size;
@@ -110,7 +110,7 @@ int ft_optimize_move(t_list	**head, int	place)
 	return(place); 
 }
 
-int	ft_count_cost(t_list	**head_b, t_list	**head_a, int index_a, int	pla_a)
+int	ft_count_cost(t_list	**head_b, t_list	**head_a, int index_a, int	pla_a) // a stacindeki nodun maliyetini hesaplıyor
 {
 	t_list	*closest_smaller_node;
 	t_list	*top_b;
@@ -147,7 +147,7 @@ int	ft_count_cost(t_list	**head_b, t_list	**head_a, int index_a, int	pla_a)
 	return(cost);
 }
 
-t_list	*ft_less_cost(t_list	**head_a, t_list	**head_b)
+t_list	*ft_less_cost(t_list	**head_a, t_list	**head_b) // en düşük maliyetli nodu döndürüyor
 {
 	t_list	*cost_node;
 	t_list	*less;
@@ -174,7 +174,7 @@ t_list	*ft_less_cost(t_list	**head_a, t_list	**head_b)
 	return(less);
 }
 
-void	ft_two_push(t_list	**head_a, t_list	**head_b)
+void	ft_two_push(t_list	**head_a, t_list	**head_b) // a stacindeki ilk iki nodu b stackine pushlar ve sortlar
 {
 	push_b(head_a, head_b);
 	push_b(head_a, head_b);
@@ -182,7 +182,7 @@ void	ft_two_push(t_list	**head_a, t_list	**head_b)
 		ft_swap(head_b, 'b');
 }
 
-void	ft_sort(t_list	**head_a, t_list	**head_b)
+void	ft_sort(t_list	**head_a, t_list	**head_b) // ana sıralamayla ilgili fonksiyon
 {
 	t_list	*node;
 	t_list	*min_cost;
@@ -192,7 +192,7 @@ void	ft_sort(t_list	**head_a, t_list	**head_b)
 	min_cost = ft_less_cost(head_a, head_b);
 }
 
-void	ft_get_index(t_list **head_a)
+void	ft_get_index(t_list **head_a) // nodeların sıralandıktan sonra olması gereken yerlerindeki indeksleri indeks değişkenine yazar
 {
 	t_list	*node;
 	t_list	*current;
