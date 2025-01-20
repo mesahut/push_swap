@@ -135,7 +135,36 @@ int	ft_place_in_b(t_list	**head_b, int index_a, int	pla_b, int	len)
 		top_b = top_b->next;
 		len++;
 	}
+	if(!closest_smaller_node)
+	{
+		pla_b = find_max(head_b);
+		return (ft_place_in_b(head_b, pla_b, 0, 0));
+	}
 	return(pla_b);
+}
+
+void find_max(t_list	**head_b)
+{
+	t_list	*max;
+	t_list	*node_b;
+	int len;
+	int	place;
+	
+	len = 0;
+	place = 0;
+	node_b = (*head_b);
+	max = (*head_b);
+	while (node_b)
+	{
+		if(node_b->index > max->index)
+		{
+			max = node_b;
+			place = len;
+		}
+		node_b = node_b->next;
+		len++;
+	}
+	return(place);
 }
 
 int	ft_count_cost(t_list	**head_b, t_list	**head_a, int index_a, int	pla_a) // a stacindeki nodun maliyetini hesaplıyor
@@ -148,8 +177,6 @@ int	ft_count_cost(t_list	**head_b, t_list	**head_a, int index_a, int	pla_a) // a
 	pla_b = 0;
 	cost = 0;
 	pla_b = ft_place_in_b(head_b, index_a, pla_b, len);
-	pla_a = ft_optimize_move(head_a, pla_a);
-	pla_b = ft_optimize_move(head_b, pla_b);
 	cost = pla_a + pla_b;
 	return(cost);
 }
@@ -164,7 +191,7 @@ t_list	*ft_less_cost(t_list	**head_a, t_list	**head_b) // en düşük maliyetli 
 
 	pla_a = 1;
 	cost_node = (*head_a);
-	cost = ft_count_cost(head_b, head_a, cost_node->index, 0);
+	//cost = ft_count_cost(head_b, head_a, cost_node->index, 0);
 	less = cost_node;
 	cost_node = cost_node->next;
 	while (cost_node)
@@ -324,7 +351,7 @@ int main(int ac, char **av)
 	}
 	ft_get_index(&a);
 	ft_sort_in_b(&a, &b);
-	ft_print_list(&a);
-	printf("\n----------\n");
-	ft_print_list(&b);
+	//ft_print_list(&a);
+	//printf("\n----------\n");
+	//ft_print_list(&b);
 }
