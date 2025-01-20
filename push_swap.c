@@ -235,7 +235,7 @@ void	ft_push_min(t_list	**head_a, t_list	**head_b, int	min_index)
 	else
 		ft_move(head_a, cost_min, 'd', 'a');
 	push_b(head_a, head_b);
-	printf("-------%d\n", min_index);
+	//printf("-------%d\n", min_index);
 }
 
 void	ft_make_head_in_b(t_list	**head_b, int index_a)
@@ -324,7 +324,7 @@ int main(int ac, char **av)
 	}
 	ft_get_index(&a);
 	ft_sort_in_b(&a, &b);
-	//ft_print_list(&a);
-	//printf("\n----------\n");
-	//ft_print_list(&b);
+	ft_print_list(&a);
+	printf("\n----------\n");
+	ft_print_list(&b);
 }
