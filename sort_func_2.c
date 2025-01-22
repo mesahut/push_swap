@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort_func_2.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mayilmaz <mayilmaz@student.42kocaeli.co    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/22 16:44:44 by mayilmaz          #+#    #+#             */
+/*   Updated: 2025/01/22 16:57:54 by mayilmaz         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 void	ft_three_sort(t_list	**head)
@@ -28,6 +40,6 @@ void	ft_three_sort(t_list	**head)
 
 void	ft_two_sort(t_list	**head)
 {
-	if((*head)->index < (*head)->next->index)
+	if ((*head)->index > (*head)->next->index)
 		ft_swap(head, 'b');
 }

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort_func.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mayilmaz <mayilmaz@student.42kocaeli.co    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/22 16:44:40 by mayilmaz          #+#    #+#             */
+/*   Updated: 2025/01/22 17:22:15 by mayilmaz         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-void	ft_get_index(t_list **head_a) // nodeların sıralandıktan sonra olması gereken yerlerindeki indeksleri indeks değişkenine yazar
+void	ft_get_index(t_list **head_a)
 {
 	t_list	*node;
 	t_list	*current;
@@ -35,7 +47,6 @@ void	ft_last_sort(t_list	**head_a, t_list	**head_b)
 
 	last_big = (*head_a);
 	count = 0;
-
 	while ((*head_b))
 	{
 		last_big = (*head_a);
@@ -51,17 +62,15 @@ void	ft_last_sort(t_list	**head_a, t_list	**head_b)
 		}
 		push_a(head_a, head_b);
 	}
-		while (count++ < 3)
-			ft_reverse_rotate(head_a, 'a');
+	while (count++ < 3)
+		ft_reverse_rotate(head_a, 'a');
 }
 
-void	ft_sort_in_b(t_list	**head_a, t_list	**head_b) // ana sıralamayla ilgili fonksiyon
+void	ft_sort_in_b(t_list	**head_a, t_list	**head_b)
 {
-	t_list	*node;
 	t_list	*min_cost;
 	int		head_cost;
 
-	node = (*head_a);
 	head_cost = 0;
 	while ((*head_a)->next->next->next)
 	{
@@ -70,27 +79,23 @@ void	ft_sort_in_b(t_list	**head_a, t_list	**head_b) // ana sıralamayla ilgili f
 		ft_push_min(head_a, head_b, min_cost->index);
 	}
 	head_cost = ft_find_max(head_b);
-//	head_cost = ft_optimize_move(head_b, head_cost);
 	ft_move_big_node(head_b, head_cost);
 }
 
-void	ft_push_min(t_list	**head_a, t_list	**head_b, int	min_index)
+void	ft_push_min(t_list **head_a, t_list **head_b, int min_index)
 {
-	t_list *node_a;
+	t_list	*node_a;
 	int		cost_min;
-	int		new_cost_min;
 
 	cost_min = 0;
 	node_a = (*head_a);
 	while (node_a)
 	{
-		if(node_a->index == min_index)
-			break;
+		if (node_a->index == min_index)
+			break ;
 		cost_min++;
 		node_a = node_a->next;
 	}
 	ft_move(head_a, cost_min, 'd', 'a');
 	push_b(head_a, head_b);
-	//printf("-------%d\n", min_index);
 }
-
