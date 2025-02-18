@@ -6,14 +6,14 @@
 /*   By: mayilmaz <mayilmaz@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:44:03 by mayilmaz          #+#    #+#             */
-/*   Updated: 2025/01/22 17:45:32 by mayilmaz         ###   ########.fr       */
+/*   Updated: 2025/02/18 23:20:23 by mayilmaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "push_swap.h"
 
-int	ft_atoi(char	**av, char *str, t_list	**stack, int ac)
+int	ft_atoi(char	**av, char *str, t_list	**stack)
 {
 	int			i;
 	long int	number;
@@ -35,23 +35,13 @@ int	ft_atoi(char	**av, char *str, t_list	**stack, int ac)
 		if (number >= 0 && number < 10)
 			number *= negative;
 		if ((number > 2147483647) || (number < -2147483648))
-			ft_error_node(av, stack, ac);
+			ft_error_node(av, stack);
 		i++;
 	}
 	return (number);
 }
 
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	int	i;
-
-	i = 0;
-	while ((s1[i] == s2[i]) && (s1[i] != '\0'))
-		i++;
-	return (s1[i] - s2[i]);
-}
-
-void	ft_is_valid(char **str)
+void	ft_is_valid(char **str, t_list **stack)
 {
 	int	i;
 	int	j;
@@ -62,31 +52,17 @@ void	ft_is_valid(char **str)
 		j = 0;
 		if ((str[i][j] == 45 || str[i][j] == 43))
 			j++;
+		if (!str[i][j])
+		{
+			free_split(str, ft_strlen(str));
+			ft_error_arg(stack);
+		}
 		while (str[i][j])
 		{
 			if (((str[i][j] > '9') || (str[i][j] < '0')))
-				ft_error_arg(str, 2);
-			j++;
-		}
-		i++;
-	}
-}
-
-void	ft_is_unique(char	**str)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (str[i])
-	{
-		j = i + 1;
-		while (str[j])
-		{
-			if (ft_strcmp(str[i], str[j]) == 0)
 			{
-				ft_error_arg(str, 2);
+				free_split(str, ft_strlen(str));
+				ft_error_arg(stack);
 			}
 			j++;
 		}
@@ -94,21 +70,21 @@ void	ft_is_unique(char	**str)
 	}
 }
 
-void	ft_is_valid_and_unique(char **str, int ac)
+void	ft_is_unique(t_list **stack)
 {
-	if (str == NULL || *str == NULL)
+	t_list	*node;
+	t_list	*check;
+
+	node = (*stack);
+	while (node->next)
 	{
-		ft_error_arg(str, 0);
-	}
-	if (ac > 2)
-	{
-		str++;
-		ft_is_valid(str);
-		ft_is_unique(str);
-	}
-	else
-	{
-		ft_is_valid(str);
-		ft_is_unique(str);
+		check = node->next;
+		while (check)
+		{
+			if (node->num == check->num)
+				ft_error_arg(stack);
+			check = check->next;
+		}
+		node = node->next;
 	}
 }

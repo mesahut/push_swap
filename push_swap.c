@@ -6,14 +6,14 @@
 /*   By: mayilmaz <mayilmaz@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:45:03 by mayilmaz          #+#    #+#             */
-/*   Updated: 2025/01/22 17:19:49 by mayilmaz         ###   ########.fr       */
+/*   Updated: 2025/02/19 01:22:29 by mayilmaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "push_swap.h"
 
-void	create_node(t_list **head, int data, char **str, int ac)
+void	create_node(t_list **head, int data, char **str)
 {
 	t_list	*new_node;
 	t_list	*current;
@@ -21,7 +21,7 @@ void	create_node(t_list **head, int data, char **str, int ac)
 	new_node = (t_list *)malloc(sizeof(t_list));
 	if (!new_node)
 	{
-		ft_error_node(str, head, ac);
+		ft_error_node(str, head);
 	}
 	new_node->num = data;
 	new_node->index = 0;
@@ -59,24 +59,17 @@ int	main(int ac, char **av)
 	t_list	*a;
 	t_list	*b;
 	int		i;
+	char	**tmp;
 
 	a = NULL;
 	b = NULL;
 	i = 1;
+	tmp = NULL;
 	if (ac < 2)
 		return (0);
-	if (ac == 2)
-	{
-		av = ft_split(av[1], ' ');
-		i = 0;
-	}
-	ft_is_valid_and_unique(av, ac);
-	while (av[i])
-	{
-		create_node(&a, ft_atoi(av, av[i], &a, ac), av, ac);
-		i++;
-	}
+	ft_error_check(&a, tmp, av, i);
 	ft_get_index(&a);
 	ft_stack_processor(&a, &b);
-	ft_free_last(av, &a, ac);
+	ft_free_last(&a);
+	return (1);
 }

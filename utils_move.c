@@ -6,7 +6,7 @@
 /*   By: mayilmaz <mayilmaz@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:44:27 by mayilmaz          #+#    #+#             */
-/*   Updated: 2025/01/22 16:57:34 by mayilmaz         ###   ########.fr       */
+/*   Updated: 2025/02/19 02:21:33 by mayilmaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,24 @@ int	ft_list_size(t_list	**head)
 
 void	ft_move_big_node(t_list **head_b, int step)
 {
-	while (step != 0)
+	int	new_step;
+
+	new_step = ft_optimize_move(head_b, step);
+	if (step > new_step)
 	{
-		ft_rotate(head_b, 'b');
-		step--;
+		while (new_step != 0)
+		{
+			ft_reverse_rotate(head_b, 'b');
+			new_step--;
+		}
+	}
+	else
+	{
+		while (step != 0)
+		{
+			ft_rotate(head_b, 'b');
+			step--;
+		}
 	}
 }
 

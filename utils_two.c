@@ -5,58 +5,52 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mayilmaz <mayilmaz@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/22 16:43:57 by mayilmaz          #+#    #+#             */
-/*   Updated: 2025/01/22 18:13:28 by mayilmaz         ###   ########.fr       */
+/*   Created: 2025/02/17 23:58:55 by mayilmaz          #+#    #+#             */
+/*   Updated: 2025/02/19 02:21:54 by mayilmaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdlib.h>
-#include <unistd.h>
 
-int	ft_strlen(char **s)
+int	ft_is_sortted(t_list **head_a)
 {
-	int	i;
+	t_list	*node;
 
-	i = 0;
-	while (s[i] != NULL)
+	node = (*head_a);
+	while (node->next != NULL)
+	{
+		if (node->num > node->next->num)
+			return (0);
+		node = node->next;
+	}
+	return (1);
+}
+
+void	ft_error_check(t_list **a, char **tmp, char **av, int i)
+{
+	int	j;
+
+	j = 0;
+	while (av[i])
+	{
+		j = 0;
+		tmp = ft_split(av[i], ' ');
+		if (!tmp)
+			ft_error_arg(a);
+		while (tmp[j])
+		{
+			ft_is_valid(tmp, a);
+			create_node(a, ft_atoi(tmp, tmp[j], a), tmp);
+			j++;
+		}
 		i++;
-	return (i);
-}
-
-void	ft_error_arg(char **str, int ac)
-{
-	if (ac == 0)
+		free_split(tmp, ft_strlen(tmp));
+	}
+	ft_is_unique(a);
+	if ((ft_is_sortted(a)))
 	{
-		write(2, "Error\n", 6);
+		ft_free_last(a);
 		exit(1);
 	}
-	if (ac == 2)
-	{
-		free_split(str, ft_strlen(str));
-		write(2, "Error\n", 6);
-		exit(1);
-	}
-}
-
-void	ft_free_last(char	**str, t_list	**stack, int ac)
-{
-	t_list	*tmp;
-
-	tmp = (*stack);
-	while ((*stack))
-	{
-		tmp = (*stack);
-		(*stack) = (*stack)->next;
-		free(tmp);
-	}
-	if (ac == 2)
-		free_split(str, ft_strlen(str));
-}
-
-void	ft_error_node(char	**str, t_list	**stack, int ac)
-{
-	ft_free_last(str, stack, ac);
-	write(2, "Error\n", 6);
-	exit(1);
 }

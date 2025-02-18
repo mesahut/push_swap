@@ -6,7 +6,7 @@
 /*   By: mayilmaz <mayilmaz@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:45:06 by mayilmaz          #+#    #+#             */
-/*   Updated: 2025/01/22 18:19:43 by mayilmaz         ###   ########.fr       */
+/*   Updated: 2025/02/18 03:14:51 by mayilmaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,13 @@ char	**ft_split(char const *s, char c)
 {
 	char	**f;
 	int		i;
+	int		word;
 
 	i = 0;
-	if (!s || s[i] == '\0')
+	word = word_count(s, c);
+	if (!s || s[i] == '\0' || word == 0)
 		return (NULL);
-	f = (char **)malloc(sizeof(char *) * (word_count(s, c) + 1));
+	f = (char **)malloc(sizeof(char *) * (word + 1));
 	if (!f)
 		return (NULL);
 	word_save(f, s, c, i);
