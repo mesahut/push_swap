@@ -41,5 +41,5 @@ void	ft_three_sort(t_list	**head)
 void	ft_two_sort(t_list	**head)
 {
 	if ((*head)->index > (*head)->next->index)
-		ft_swap(head, 'b');
+		ft_swap(head, 'a');
 }
